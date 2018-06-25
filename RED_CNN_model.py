@@ -60,6 +60,7 @@ class RED_CNN(nn.Module):
 
 
 '''
+#### training ####
 LEARNING_RATE = 1e-3
 LEARNING_RATE_ = 1e-4
 NUM_EPOCHS = 100
@@ -110,36 +111,8 @@ for epoch in range(NUM_EPOCHS):
 
 
 torch.save(redcnn.state_dict(), 'redcnn_100ep.ckpt')
-
-
-'''
-
-
-'''
-redcnn.eval()
-with torch.no_grad():
-    correct = 0
-    total = 0
-    for input_img, target_img in test_loader:
-        input_img = input_img.to(device)
-        target_img = target_img.to(device)
 '''
 
 
 
 
-
-
-
-'''
-# MNIST dataset
-transform = transforms.Compose([
-    transforms.Resize((8,8)),
-    transforms.Resize((28,28)),
-    transforms.ToTensor()])
-
-train_dataset = torchvision.datasets.MNIST(root='../../data/', train=True, transform=transform, download=True)
-train_loader = torch.utils.data.DataLoader(dataset=train_dataset, batch_size=64, shuffle=False)
-target_dataset = torchvision.datasets.MNIST(root='../../data/', train=True, transform=transforms.ToTensor(), download=True)
-target_loader = torch.utils.data.DataLoader(dataset=target_dataset, batch_size=64, shuffle=False)
-'''
