@@ -2,14 +2,11 @@
 import torch
 import numpy as np
 import os
-import math
-import scipy
 import matplotlib.pyplot as plt
 from RED_CNN_model import RED_CNN
 from skimage.measure import compare_psnr, compare_ssim, compare_nrmse
 
 def test_RED_CNN(data_path, num_test, pre_model='redcnn_30ep.ckpt', figure=None, model=RED_CNN()):
-
     # model load
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
     redcnn = model.to(device)
@@ -50,46 +47,15 @@ def test_RED_CNN(data_path, num_test, pre_model='redcnn_30ep.ckpt', figure=None,
     return test_img_ori, test_output_img, test_target
 
 
-def my_psnr(original, model_output, target, all=None, d_range=4096):
-    # number of img
-    if len(original) == len(model_output) == len(target):
-        n_img = len(original)
-    else: raise NotImplementedError
-    # psnr by each img
-    if type(original) ==  list or type(model_output) == list or type(target) == list:
-        original = np.array(original)
-        model_output = np.array(model_output)
-        target = np.array(target)
-
-    if all == None:
-        for i in range(n_img):
-            psnr_ori = compare_psnr(original[i], target[i], data_range=d_range)
-            psnr_mod = compare_psnr(model_output[i], target[i], data_range=d_range)
-            print('img_{}_original_PSNR : {:.4f}'.format(i+1, psnr_ori))
-            print('img_{}_model_PSNR : {:.4f}'.format(i+1, psnr_mod))
-
-    else:
-        psnr_ori = compare_psnr(original, target, data_range=d_range)
-        psnr_mod = compare_psnr(model_output, target, data_range=d_range)
-        print('img_original_PSNR : {:.4f}'.format(psnr_ori))
-        print('img_model_PSNR : {:.4f}'.format(psnr_mod))
-
-
-
 test_path = '/home/datascience/PycharmProjects/CT/dev_image/'
 pre_model1 = 'redcnn_30ep.ckpt'
 pre_model2 = 'redcnn_100ep.ckpt'
-pre_model3 = 'redcnn_50ep(psnr_loss).ckpt'
 
-ori, test, tar = test_RED_CNN(test_path, 2, pre_model =pre_model1)
+ori, test, tar = test_RED_CNN(test_path, 2, pre_model=pre_model1)
 ori2, test2, tar2 = test_RED_CNN(test_path, 2, pre_model=pre_model2)
-ori3, test3, tar3 = test_RED_CNN(test_path, 2, pre_model3)
 
-#my_psnr(ori2, test2, tar2)
 compare_psnr(ori3, tar3)
 compare_psnr(test3, tar3)
-
-my_psnr(ori3, test3, tar3, all=True)
 
 compare_ssim(ori3[0], tar3[0])
 compare_nrmse(np.array(ori2), np.array(tar2))
