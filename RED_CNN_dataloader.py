@@ -1,9 +1,6 @@
 import os
-import torch
-from skimage import io
 import numpy as np
-import matplotlib.pyplot as plt
-from torch.utils.data import Dataset, DataLoader
+from torch.utils.data import Dataset
 
 
 class DCMsDataset(Dataset):
