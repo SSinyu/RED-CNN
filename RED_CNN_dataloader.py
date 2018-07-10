@@ -33,6 +33,11 @@ class DCMsDataset(Dataset):
 
 
 
+
+
+
+
+
 # build dir for tmptestset copy
 #test_path = '/home/datascience/PycharmProjects/CT/test/'
 #os.mkdir(test_path)
