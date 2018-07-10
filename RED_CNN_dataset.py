@@ -1,11 +1,8 @@
 
 import os
-import scipy.misc
 import dicom
 import numpy as np
-import matplotlib.pyplot as plt
 import torch
-from PIL import Image
 
 def load_scan(path):
     slices = [dicom.read_file(path + s) for s in os.listdir(path)]
@@ -31,37 +28,12 @@ def get_pixels_hu(slices):
     image[slice_number] += np.int16(intercept)
     return np.array(image, dtype=np.int16)
 
-'''
-# test patch extraction
-cts_pixels = get_pixels_hu(load_scan(input_path))
-test_image_1d = torch.tensor(cts_pixels[0][0])
-print(test_image_1d[:10])
-print(test_image_1d.unfold(0,2,1)[:10])
-print(test_image_1d.unfold(0,2,2)[:10])
-test_image_2d = torch.tensor(cts_pixels)
-size = 300
-stride = 200
-patches = test_image_2d.unfold(1,size,stride).unfold(2,size,stride)
-patches.shape # batch_size, contains(x,y), patch_size(x,y)
-patches[0][0][0].shape
-plt.imshow(cts_pixels[80], cmap=plt.cm.gray)
-fig = plt.figure()
-i = 1
-for j in range(2):
-    for k in range(2):
-        img = patches[80][j][k]
-        fig.add_subplot(2,2,i)
-        plt.imshow(img, cmap=plt.cm.gray)
-        i += 1
-'''
 
-
-### data patch (input/target) extract >>> save
+### extract patch image from input/target data, and save
 input_path = '/home/datascience/Denoising/DENOISING MODEL_DICOM file/100KV 1ST/10 B STANDARD iDose/'
 target_path = '/home/datascience/Denoising/DENOISING MODEL_DICOM file/100KV 1ST/200 B STANDARD iDose/'
 patch_input = '/home/datascience/PycharmProjects/CT/patch/input/'
 patch_target = '/home/datascience/PycharmProjects/CT/patch/target/'
-
 
 PATCH_SIZE = 64
 STRIDE = 20
@@ -89,8 +61,7 @@ for io in [input_path, target_path]:
         print('{}/{} batch'.format(batch+1, patches.size()[0]))
     print('Tensor size :', patches.size())
 
-
-
+    
 ### sort by input/target index
 patch_file_i = os.listdir(patch_input)
 patch_file_t = os.listdir(patch_target)
@@ -103,7 +74,7 @@ print(input_fname[-10:])
 print(target_fname[-10:])
 
 
-### test data processing
+### test data generate for model evaluation
 test_input_path = '/home/datascience/Denoising/DENOISING MODEL_DICOM file/100KV 1ST/10 Y SHARP iDose/'
 test_target_path = '/home/datascience/Denoising/DENOISING MODEL_DICOM file/100KV 1ST/200 Y SHARP iDose/'
 output_path = '/home/datascience/PycharmProjects/CT/dev_image/'
@@ -115,5 +86,4 @@ for io in [test_input_path, test_target_path]:
             np.save(output_path+'raw_input_{}.npy'.format(i), patch_pixels[i])
         else:
             np.save(output_path+'raw_target_{}.npy'.format(i), patch_pixels[i])
-
 
