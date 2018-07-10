@@ -25,41 +25,29 @@ class RED_CNN(nn.Module):
 
     def forward(self, x):
         # Encoder
-        residual1 = x # 28*28
-        layer01 = self.conv_first(x)
-        layer01 = self.relu(layer01)
-        residual2 = layer01 # 24*24
-        layer02 = self.conv(layer01)
-        layer02 = self.relu(layer02)
-        residual3 = layer02 # 20*20
-        layer03 = self.conv(layer02)
-        layer03 = self.relu(layer03)
-        residual4 = layer03 # 16*16
-        layer04 = self.conv(layer03)
-        layer04 = self.relu(layer04)
-        residual5 = layer04 # 12*12
-        layer05 = self.conv(layer04)
-        layer05 = self.relu(layer05) # 8*8
-        # Decoder
-        layer06 = self.deconv(layer05) # 12*12
-        layer06 += residual5
-        layer06 = self.relu(layer06)
-        layer07 = self.deconv(layer06) # 16*16
-        layer07 += residual4
-        layer07 = self.relu(layer07)
-        layer08 = self.deconv(layer07) # 20*20
-        layer08 += residual3
-        layer08 = self.relu(layer08)
-        layer09 = self.deconv(layer08) # 24*24
-        layer09 += residual2
-        layer09 = self.relu(layer09)
-        layer10 = self.deconv_last(layer09) # 28*28
-        layer10 += residual1
-        layer10 = self.relu(layer10)
-        return layer10
+        residual1 = x.clone()
+        layer = self.relu(self.conv_first(stn_x))
+        layer = self.relu(self.conv(layer))
+        residual2 = layer.clone()
+        layer = self.relu(self.conv(layer))
+        layer = self.relu(self.conv(layer))
+        residual3 = layer.clone()
+        layer = self.relu(self.conv(layer))
+        # decoder
+        layer = self.deconv(layer)
+        layer += residual3
+        layer = self.deconv(self.relu(layer))
+        layer = self.deconv(self.relu(layer))
+        layer += residual2
+        layer = self.deconv(self.relu(layer))
+        layer = self.deconv_last(self.relu(layer))
+        layer += residual1
+        layer = self.relu(layer)
+        return layer
 
+    
+    
 
-'''
 #### training ####
 LEARNING_RATE = 1e-3
 LEARNING_RATE_ = 1e-4
@@ -76,7 +64,6 @@ target_img_dir = '/home/datascience/PycharmProjects/CT/patch/target/'
 dcm = DCMsDataset(input_img_dir, target_img_dir)
 dcmloader = DataLoader(dcm, batch_size=BATCH_SIZE, shuffle=False)
 test_loader = DataLoader(dcm, batch_size=BATCH_SIZE, shuffle=False)
-
 
 
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
@@ -111,7 +98,7 @@ for epoch in range(NUM_EPOCHS):
 
 
 torch.save(redcnn.state_dict(), 'redcnn_100ep.ckpt')
-'''
+
 
 
 
