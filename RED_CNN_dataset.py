@@ -56,7 +56,7 @@ for j in range(2):
 '''
 
 
-### TODO ::: data patch (input/target) extract >>> save
+### data patch (input/target) extract >>> save
 input_path = '/home/datascience/Denoising/DENOISING MODEL_DICOM file/100KV 1ST/10 B STANDARD iDose/'
 target_path = '/home/datascience/Denoising/DENOISING MODEL_DICOM file/100KV 1ST/200 B STANDARD iDose/'
 patch_input = '/home/datascience/PycharmProjects/CT/patch/input/'
@@ -91,7 +91,7 @@ for io in [input_path, target_path]:
 
 
 
-### TODO ::: sort by input/target index
+### sort by input/target index
 patch_file_i = os.listdir(patch_input)
 patch_file_t = os.listdir(patch_target)
 input_fname = [f for f in patch_file_i if f[:1] == 'i']
@@ -99,16 +99,11 @@ target_fname = [f for f in patch_file_t if f[:1] == 't']
 input_fname = sorted(input_fname)
 target_fname = sorted(target_fname)
 
-input_fname[-10:]
-target_fname[-10:]
+print(input_fname[-10:])
+print(target_fname[-10:])
 
 
-
-
-
-
-
-### TODO ::: test data processing
+### test data processing
 test_input_path = '/home/datascience/Denoising/DENOISING MODEL_DICOM file/100KV 1ST/10 Y SHARP iDose/'
 test_target_path = '/home/datascience/Denoising/DENOISING MODEL_DICOM file/100KV 1ST/200 Y SHARP iDose/'
 output_path = '/home/datascience/PycharmProjects/CT/dev_image/'
