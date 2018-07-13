@@ -6,11 +6,20 @@ import matplotlib.pyplot as plt
 from RED_CNN_model import RED_CNN
 from skimage.measure import compare_psnr, compare_ssim, compare_nrmse
 
-def test_RED_CNN(data_path, num_test, pre_model='redcnn_30ep.ckpt', figure=None, model=RED_CNN()):
+def test_RED_CNN(data_path, num_test, pre_model='redcnn_30ep.ckpt', model=RED_CNN(), figure=None, MultiGPU=None):
     # model load
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
     redcnn = model.to(device)
-    redcnn.load_state_dict(torch.load(pre_model))
+    if MultiGPU:
+        from collections import OrderedDict
+        state_dict = torch.load(pre_model)
+        new_state_dict = OrderedDict()
+        for k, v in state_dict.items():
+            name = k[7:]
+            new_state_dict[name] = v
+        redcnn.load_state_dict(torch.load(new_state_dict))
+    else:
+        redcnn.load_state_dict(torch.load(pre_model))
 
     # data load
     dir = sorted(os.listdir(data_path))
