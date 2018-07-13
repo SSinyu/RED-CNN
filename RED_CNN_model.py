@@ -67,7 +67,12 @@ test_loader = DataLoader(dcm, batch_size=BATCH_SIZE, shuffle=False)
 
 
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
-redcnn = RED_CNN(OUT_CHANNELS).to(device)
+redcnn = RED_CNN(OUT_CHANNELS)
+if torch.cuda.device_count() > 1:
+    print("Use {} GPUs".format(torch.cuda.device_count()), "="*9)
+    redcnn = nn.DataParallel(redcnn)
+redcnn.to(device)
+
 criterion = nn.MSELoss()
 optimizer = torch.optim.Adam(redcnn.parameters(), lr=LEARNING_RATE)
 
