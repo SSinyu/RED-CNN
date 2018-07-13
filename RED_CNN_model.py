@@ -26,7 +26,7 @@ class RED_CNN(nn.Module):
     def forward(self, x):
         # Encoder
         residual1 = x.clone()
-        layer = self.relu(self.conv_first(stn_x))
+        layer = self.relu(self.conv_first(x))
         layer = self.relu(self.conv(layer))
         residual2 = layer.clone()
         layer = self.relu(self.conv(layer))
