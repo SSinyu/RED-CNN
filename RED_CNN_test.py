@@ -17,7 +17,7 @@ def test_RED_CNN(data_path, num_test, pre_model='redcnn_30ep.ckpt', model=RED_CN
         for k, v in state_dict.items():
             name = k[7:]
             new_state_dict[name] = v
-        redcnn.load_state_dict(torch.load(new_state_dict))
+        redcnn.load_state_dict(new_state_dict)
     else:
         redcnn.load_state_dict(torch.load(pre_model))
 
