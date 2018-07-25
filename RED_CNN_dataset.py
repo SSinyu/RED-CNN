@@ -49,9 +49,9 @@ for io in [input_path, target_path]:
     #print(patches.size())
     ind = 0
     for batch in range(patches.size()[0]):
-        for low in range(patches.size()[1]):
+        for row in range(patches.size()[1]):
             for col in range(patches.size()[2]):
-                patch = patches[batch][low][col]
+                patch = patches[batch][row][col]
                 if io == input_path:
                     np.save(patch_input + 'input_{}.npy'.format(ind), patch)
                     ind += 1
