@@ -7,3 +7,5 @@ https://arxiv.org/abs/1702.00288
 ##### TARGET(100KV 1ST 200B STANDARD iDose)
 ![ct1](https://github.com/SSinyu/RED_CNN/blob/master/img/ct1.png)
 ![ct2](https://github.com/SSinyu/RED_CNN/blob/master/img/ct2.png)
+
+![ct3](https://github.com/SSinyu/RED_CNN/blob/master/img/mayo-full.PNG)
