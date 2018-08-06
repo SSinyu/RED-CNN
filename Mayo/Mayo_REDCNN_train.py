@@ -11,18 +11,17 @@ from skimage.measure import compare_mse, compare_psnr, compare_ssim
 LEARNING_RATE = 1e-4
 NUM_EPOCHS = 1000
 BATCH_SIZE = 5
+CROP_NUMBER = 40 # The number of patches to extract from a single image. --> total batch size is BATCH_SIZE * CROP_NUMBER
 PATCH_SIZE = 55
-CROP_NUMBER = 40
 NUM_WORKERS = 30
+
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
-
 def main():
-    # train data
+    # train data (2167 image)
     full_data_path = '/home/shsy0404/Mayo-CT-full/'
-    full_data_dir = sorted(os.listdir(full_data_path))
-    input_img_dir = full_data_path + full_data_dir[1]
-    target_img_dir = full_data_path + full_data_dir[3]
+    input_img_dir = full_data_path + 'input_full_img'
+    target_img_dir = full_data_path + 'target_full_img'
 
     input_dir = []; target_dir = []
     for f in sorted(os.listdir(input_img_dir)):
@@ -30,7 +29,7 @@ def main():
     for f in sorted(os.listdir(target_img_dir)):
         target_dir.append(np.load(target_img_dir + '/' + f))
 
-    # validation data
+    # validation data (11 image)
     val_data_path = '/home/shsy0404/Mayo-CT-full/test/'
     input_val_dir_ = sorted([data for data in os.listdir(val_data_path) if 'input' in data])
     target_val_dir_ = sorted(list(set(os.listdir(val_data_path)) - set(input_val_dir_)))
@@ -44,23 +43,28 @@ def main():
         input_val_dir.append(inp_)
         target_val_dir.append(tar_)
 
-    # train, validate loader
+    # train, validate data loading
     train_dcm = train_dcm_data_loader(input_dir, target_dir, crop_size=PATCH_SIZE, crop_n=CROP_NUMBER)
     train_loader = DataLoader(train_dcm, batch_size=BATCH_SIZE, shuffle=True, num_workers=NUM_WORKERS)
 
     val_dcm = validate_dcm_data_loader(input_val_dir, target_val_dir)
     val_loader = DataLoader(val_dcm, batch_size=1, num_workers=NUM_WORKERS)
 
+    # multi gpu
     red_cnn = RED_CNN()
     if torch.cuda.device_count() > 1:
         print("Use {} GPUs".format(torch.cuda.device_count()), "=" * 10)
         red_cnn = nn.DataParallel(red_cnn)
     red_cnn.to(device)
 
+    # define loss function and optimizer
     criterion = nn.MSELoss()
     optimizer = torch.optim.Adam(red_cnn.parameters(), lr=LEARNING_RATE)
 
+    # save values
     loss_ = []; rmse = []; psnr = []; ssim = []
+
+    # training
     for epoch in range(NUM_EPOCHS):
 
         loss_lst = train(train_loader, red_cnn, criterion, optimizer, epoch)
@@ -72,26 +76,24 @@ def main():
         ssim.append(s)
 
         if (epoch + 1) % 100 == 0:
-            if CROP_NUMBER = None:
+            if CROP_NUMBER == None:
                 torch.save(red_cnn.state_dict(), '/home/shsy0404/red_cnn_mayo_{}ep.ckpt'.format(epoch + 1))
             else:
                 torch.save(red_cnn.state_dict(), '/home/shsy0404/red_cnn_mayo_patch_{}ep.ckpt'.format(epoch + 1))
 
-
-            torch.save(red_cnn.state_dict(), '/home/shsy0404/red_cnn_mayo_patch_{}ep.ckpt'.format(epoch + 1))
-
     result_ = {'Loss':loss_, 'RMSE':rmse, 'PSNR':psnr, 'SSIM':ssim}
-    with open('home/shsy0404/result_.pkl', 'wb') as f:
+    with open('/home/shsy0404/result_.pkl', 'wb') as f:
         pickle.dump(result_, f)
 
 
 
-def train(data_loader, model, criterion, optimizer, epoch):
+def train(data_loader, model, criterion, optimizer, epoch, CROP_tf=None):
     model.train()
     loss_lst = []
     for i, (inputs, targets) in enumerate(data_loader):
-        inputs = inputs.reshape(-1, 55, 55).to(device)
-        targets = targets.reshape(-1, 55, 55).to(device)
+        if CROP_tf != None:
+            inputs = inputs.reshape(-1, 55, 55).to(device)
+            targets = targets.reshape(-1, 55, 55).to(device)
         input_img = torch.tensor(inputs, requires_grad=True, dtype=torch.float32).unsqueeze(1).to(device)
         target_img = torch.tensor(targets, dtype=torch.float32).unsqueeze(1).to(device)
 
@@ -105,7 +107,10 @@ def train(data_loader, model, criterion, optimizer, epoch):
 
         if (i + 1) % 10 == 0:
             print('EPOCH [{}/{}], STEP [{}/{}], LOSS {:.4f}'.format(epoch + 1, NUM_EPOCHS, i + 1, len(data_loader), loss.item()))
+
     return loss_lst
+
+
 
 
 def validate(data_loader, model):
@@ -138,6 +143,7 @@ def validate(data_loader, model):
     return rmse_avg, psnr_avg, ssim_avg
 
 
+
 def adjust_learning_rate(optimizer, epoch):
     lr = LEARNING_RATE * (0.1 ** (epoch // 100))
     for param_group in optimizer.param_groups:
@@ -147,5 +153,4 @@ def adjust_learning_rate(optimizer, epoch):
 
 if __name__ == "__main__":
     main()
-
 
