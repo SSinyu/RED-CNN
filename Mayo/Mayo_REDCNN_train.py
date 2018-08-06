@@ -72,6 +72,12 @@ def main():
         ssim.append(s)
 
         if (epoch + 1) % 100 == 0:
+            if CROP_NUMBER = None:
+                torch.save(red_cnn.state_dict(), '/home/shsy0404/red_cnn_mayo_{}ep.ckpt'.format(epoch + 1))
+            else:
+                torch.save(red_cnn.state_dict(), '/home/shsy0404/red_cnn_mayo_patch_{}ep.ckpt'.format(epoch + 1))
+
+
             torch.save(red_cnn.state_dict(), '/home/shsy0404/red_cnn_mayo_patch_{}ep.ckpt'.format(epoch + 1))
 
     result_ = {'Loss':loss_, 'RMSE':rmse, 'PSNR':psnr, 'SSIM':ssim}
