@@ -27,7 +27,7 @@ def get_pixels_hu(slices):
     if slope != 1:
         image[slice_number] = slope * image[slice_number].astype(np.float64)
         image[slice_number] = image[slice_number].astype(np.int16)
-    image[slice_number] += np.int16(intercept)
+        image[slice_number] += np.int16(intercept)
     return np.array(image, dtype=np.int16)
 
 
