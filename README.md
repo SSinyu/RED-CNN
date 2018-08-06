@@ -1,12 +1,12 @@
 # RED_CNN
 Implementation of Low-Dose CT with a Residual Encoder-Decoder Convolutional Neural Network (RED-CNN)
-https://arxiv.org/abs/1702.00288  
+https://arxiv.org/abs/1702.00288    
 
+* PSNR, SSIM, RMSE value on 1 epoch
+  - blue: 55x55 patch image learning
+  - yellow: 512x512 full image learning
 
-![PSNR](https://github.com/SSinyu/RED_CNN/blob/master/img/PSNR_comp.PNG)
-![SSIM](https://github.com/SSinyu/RED_CNN/blob/master/img/SSIM_comp.PNG)
-![RMSE](https://github.com/SSinyu/RED_CNN/blob/master/img/RMSE_comp.PNG)
-  
+<img src="https://github.com/SSinyu/RED_CNN/blob/master/img/PSNR_comp.PNG" width="250"/> <img src="https://github.com/SSinyu/RED_CNN/blob/master/img/SSIM_comp.PNG" width="250"/> <img src="https://github.com/SSinyu/RED_CNN/blob/master/img/RMSE_comp.PNG" width="250"/> 
   
 * (paper) 55x55 img input  
 
