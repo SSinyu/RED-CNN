@@ -1,4 +1,3 @@
-
 import os
 import dicom
 import numpy as np
@@ -39,10 +38,44 @@ def to_patch2D(tensor_img, patch_size, stride):
 
 
 
-### extract patch image
-my_dir = '/home/shsy0404/'
+### Save the full img as .npy
 data_dir = '/data1/AAPM-Mayo-CT-Challenge/'
-patch_dir = '/data1/Mayo-CT-patches'
+full_dir = '/data1/Mayo-CT-full/'
+if 'Mayo-CT-full' not in os.listdir('/data1'):
+    os.mkdir(full_dir)
+
+input_dir = os.path.join(full_dir, 'input_full_img/')
+target_dir = os.path.join(full_dir, 'target_full_img/')
+
+data_lst = [data for data in os.listdir(data_dir) if "L" in data and "zip" not in data]
+
+for patient_ind, patient in enumerate(data_lst):
+    if patient != 'L506': # L506 patient is testset.
+        patient_path = os.path.join(data_dir, patient)
+
+        input_path = [data for data in os.listdir(patient_path) if "quarter" in data and "3mm" in data and "sharp" not in data][0]
+        target_path = [data for data in os.listdir(patient_path) if "full" in data and "3mm" in data and "sharp" not in data][0]
+
+        for io in [input_path, target_path]:
+            full_pixels = get_pixels_hu(load_scan(os.path.join(patient_path,io)+'/'))
+
+            if io == input_path:
+                for img_ind in range(full_pixels.shape[0]):
+                    np.save(input_dir + "{}_3mm_input_full_{}.npy".format(patient, img_ind), full_pixels[img_ind])
+                    print("{}_input_{}/{}".format(patient, img_ind + 1, full_pixels.shape[0]))
+            else:
+                for img_ind in range(full_pixels.shape[0]):
+                    np.save(target_dir + "{}_3mm_target_full_{}.npy".format(patient, img_ind), full_pixels[img_ind])
+                    print("{}_target_{}/{}".format(patient, img_ind + 1, full_pixels.shape[0]))
+
+
+
+
+
+'''
+### extract patch image
+data_dir = '/data1/AAPM-Mayo-CT-Challenge/'
+patch_dir = '/data1/Mayo-CT-patches/'
 if 'Mayo-CT-patches' not in os.listdir('/data1'):
     os.mkdir(patch_dir)
 
@@ -58,7 +91,6 @@ data_lst = [data for data in os.listdir(data_dir) if "L" in data and "zip" not i
 
 PATCH_SIZE = 55
 STRIDE = 4
-
 
 for patient_ind, patient in enumerate(data_lst):
     if patient != 'L506': # input
@@ -98,42 +130,4 @@ for patient_ind, patient in enumerate(data_lst):
                 else:
                     np.save(test_dir + "{}_3mm_test_target_{}.npy".format(patient, i), patch_pixels[i])
         print("{}.{} in progress.. {}".format(patient_ind, patient, io))
-
-
-
-
-
-
-
-### Full img
-my_dir = '/home/shsy0404/'
-data_dir = '/data1/AAPM-Mayo-CT-Challenge/'
-full_dir = '/data1/Mayo-CT-full/'
-if 'Mayo-CT-full' not in os.listdir('/data1'):
-    os.mkdir(full_dir)
-
-input_dir = os.path.join(full_dir, 'input_full_img/')
-target_dir = os.path.join(full_dir, 'target_full_img/')
-test_dir = '/data1/Mayo-CT-patches/test/'
-
-data_lst = [data for data in os.listdir(data_dir) if "L" in data and "zip" not in data]
-
-for patient_ind, patient in enumerate(data_lst):
-    if patient != 'L506':
-        patient_path = os.path.join(data_dir, patient)
-
-        input_path = [data for data in os.listdir(patient_path) if "quarter" in data and "3mm" in data and "sharp" not in data][0]
-        target_path = [data for data in os.listdir(patient_path) if "full" in data and "3mm" in data and "sharp" not in data][0]
-
-        for io in [input_path, target_path]:
-            full_pixels = get_pixels_hu(load_scan(os.path.join(patient_path,io)+'/'))
-
-            if io == input_path:
-                for img_ind in range(full_pixels.shape[0]):
-                    np.save(input_dir + "{}_3mm_input_full_{}.npy".format(patient, img_ind), full_pixels[img_ind])
-                    print("{}_input_{}/{}".format(patient, img_ind + 1, full_pixels.shape[0]))
-            else:
-                for img_ind in range(full_pixels.shape[0]):
-                    np.save(target_dir + "{}_3mm_target_full_{}.npy".format(patient, img_ind), full_pixels[img_ind])
-                    print("{}_target_{}/{}".format(patient, img_ind + 1, full_pixels.shape[0]))
-
+'''
