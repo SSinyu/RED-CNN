@@ -2,7 +2,8 @@ import os
 import numpy as np
 from torch.utils.data import Dataset
 
-
+# crop_size : patch_size
+# crop_n : The number of patches to extract from a single image.
 class train_dcm_data_loader(Dataset):
     def __init__(self, input_lst, target_lst, crop_size=None, crop_n=None):
         self.input_lst = input_lst
@@ -55,5 +56,3 @@ class validate_dcm_data_loader(Dataset):
 
     def __len__(self):
         return len(self.input_lst)
-
-
