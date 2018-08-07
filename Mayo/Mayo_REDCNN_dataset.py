@@ -24,9 +24,9 @@ def get_pixels_hu(slices):
     for slice_number in range(len(slices)):
         intercept = slices[slice_number].RescaleIntercept
         slope = slices[slice_number].RescaleSlope
-    if slope != 1:
-        image[slice_number] = slope * image[slice_number].astype(np.float64)
-        image[slice_number] = image[slice_number].astype(np.int16)
+        if slope != 1:
+            image[slice_number] = slope * image[slice_number].astype(np.float64)
+            image[slice_number] = image[slice_number].astype(np.int16)
         image[slice_number] += np.int16(intercept)
     return np.array(image, dtype=np.int16)
 
