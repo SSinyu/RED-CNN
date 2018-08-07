@@ -2,6 +2,8 @@
 Implementation of Low-Dose CT with a Residual Encoder-Decoder Convolutional Neural Network (RED-CNN)
 https://arxiv.org/abs/1702.00288    
 
+<img src="https://github.com/SSinyu/RED_CNN/blob/master/img/redcnn.PNG" width="550"/> 
+
 * Comparison of LDCT and NDCT by data range. (Mean ± sd)
 
 ----|**PAPER**|-1000~400|-1000~500|-1000~600|-1000~700|-1000~800|-1000~900|-1000~1000|-1000~1100|-1000~1200
