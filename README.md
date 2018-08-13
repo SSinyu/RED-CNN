@@ -48,7 +48,8 @@ RMSE|**18.4390 ± 4.2333**|15.3025|15.1783|15.1788|15.1698|**15.1535**
   
 
 * LDCT - RED_CNN - NDCT
-<img src="https://github.com/SSinyu/RED_CNN/blob/master/img/LDCT1.PNG" width="200"/><img src="https://github.com/SSinyu/RED_CNN/blob/master/img/REDCNN1.PNG" width="200"/><img src="https://github.com/SSinyu/RED_CNN/blob/master/img/NDCT1.PNG" width="200"/> 
 
-<img src="https://github.com/SSinyu/RED_CNN/blob/master/img/LDCT2.PNG" width="200"/><img src="https://github.com/SSinyu/RED_CNN/blob/master/img/REDCNN2.PNG" width="200"/><img src="https://github.com/SSinyu/RED_CNN/blob/master/img/NDCT2.PNG" width="200"/> 
+<img src="https://github.com/SSinyu/RED_CNN/blob/master/img/LDCT1.PNG" height ="230"/><img src="https://github.com/SSinyu/RED_CNN/blob/master/img/REDCNN1.PNG" height ="230"/><img src="https://github.com/SSinyu/RED_CNN/blob/master/img/NDCT1.PNG" height ="230"/> 
+
+<img src="https://github.com/SSinyu/RED_CNN/blob/master/img/LDCT2.PNG" height="160"/><img src="https://github.com/SSinyu/RED_CNN/blob/master/img/REDCNN2.PNG" height="160"/><img src="https://github.com/SSinyu/RED_CNN/blob/master/img/NDCT2.PNG" height="160"/> 
 
