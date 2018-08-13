@@ -46,8 +46,9 @@ PSNR|**47.1245 ± 1.7507**|51.0699|51.1611|51.1173|**51.1671**|51.1668
 SSIM|**0.9809 ± 0.0093**|0.9893|0.9894|0.9893|0.9893|**0.9894**
 RMSE|**18.4390 ± 4.2333**|15.3025|15.1783|15.1788|15.1698|**15.1535**
   
- 
-<img src="https://github.com/SSinyu/RED_CNN/blob/master/img/LDCT1.PNG" width="400"/><img src="https://github.com/SSinyu/RED_CNN/blob/master/img/REDCNN1.PNG" width="400"/><img src="https://github.com/SSinyu/RED_CNN/blob/master/img/NDCT1.PNG" width="400"/> 
 
-<img src="https://github.com/SSinyu/RED_CNN/blob/master/img/LDCTw.PNG" width="400"/><img src="https://github.com/SSinyu/RED_CNN/blob/master/img/REDCNNw.PNG" width="400"/><img src="https://github.com/SSinyu/RED_CNN/blob/master/img/NDCTw.PNG" width="400"/> 
+* LDCT - RED_CNN - NDCT
+<img src="https://github.com/SSinyu/RED_CNN/blob/master/img/LDCT1.PNG" width="200"/><img src="https://github.com/SSinyu/RED_CNN/blob/master/img/REDCNN1.PNG" width="200"/><img src="https://github.com/SSinyu/RED_CNN/blob/master/img/NDCT1.PNG" width="200"/> 
+
+<img src="https://github.com/SSinyu/RED_CNN/blob/master/img/LDCT2.PNG" width="200"/><img src="https://github.com/SSinyu/RED_CNN/blob/master/img/REDCNN2.PNG" width="200"/><img src="https://github.com/SSinyu/RED_CNN/blob/master/img/NDCT2.PNG" width="200"/> 
 
