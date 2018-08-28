@@ -92,8 +92,8 @@ def train(data_loader, model, criterion, optimizer, epoch, CROP_tf=None):
     loss_lst = []
     for i, (inputs, targets) in enumerate(data_loader):
         if CROP_tf != None:
-            inputs = inputs.reshape(-1, 55, 55).to(device)
-            targets = targets.reshape(-1, 55, 55).to(device)
+            inputs = inputs.reshape(-1, PATCH_SIZE, PATCH_SIZE).to(device)
+            targets = targets.reshape(-1, PATCH_SIZE, PATCH_SIZE).to(device)
         input_img = torch.tensor(inputs, requires_grad=True, dtype=torch.float32).unsqueeze(1).to(device)
         target_img = torch.tensor(targets, dtype=torch.float32).unsqueeze(1).to(device)
 
