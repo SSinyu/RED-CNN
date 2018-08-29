@@ -50,5 +50,5 @@ RMSE|**18.4390 ± 4.2333**|11.5462 ± 2.0113|11.4277 ± 1.9987|**11.3442 ± 2.01
 
 * Visualization
 
-<img src="https://github.com/SSinyu/RED_CNN/blob/master/img/LDCT1.PNG" height ="500"/>
+<img src="https://github.com/SSinyu/RED_CNN/blob/master/img/vis.png">
 
