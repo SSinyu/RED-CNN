@@ -2,6 +2,10 @@
 Implementation of Low-Dose CT with a Residual Encoder-Decoder Convolutional Neural Network (RED-CNN)
 https://arxiv.org/abs/1702.00288    
 
+There are several things different from the original paper.
+  * The input image patch(55x55 size) is extracted randomly from the 512x512 size image. --> Original : Extract patches at regular intervals from the entire image.
+  * Use the loss function considering the Hounsfield (MSE loss is also used).
+
 <img src="https://github.com/SSinyu/RED_CNN/blob/master/img/redcnn.PNG" width="550"/> 
 
 * Comparison of LDCT and NDCT by data range. (Mean ± sd)
