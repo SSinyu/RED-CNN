@@ -4,7 +4,6 @@ import torch
 import torch.nn as nn
 from torch.utils.data import DataLoader
 from RED_CNN_util import build_dataset, RED_CNN, train_dcm_data_loader
-from RED_CNN_loss import H_loss2
 
 
 #os.environ['CUDA_VISIBLE_DEVICES'] = "1, 2, 3"
@@ -37,7 +36,6 @@ def main():
 
     # define loss function and optimizer
     criterion = nn.MSELoss()
-    criterion_H = H_loss2()
     optimizer = torch.optim.Adam(red_cnn.parameters(), lr=LEARNING_RATE)
 
     # save loss
