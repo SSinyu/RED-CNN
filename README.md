@@ -9,8 +9,34 @@ There is several things different from the original paper.
   * 512x512 entire image input is used without extracting the patches.
 
 ### DATASET
-- “the 2016 NIH-AAPM-Mayo Clinic Low Dose CT Grand Challenge” by Mayo Clinic  
+“the 2016 NIH-AAPM-Mayo Clinic Low Dose CT Grand Challenge” by Mayo Clinic  
 https://www.aapm.org/GrandChallenge/LowDoseCT/
+
+The data_path directory should look like:
+
+
+    data_path
+    ├── L067
+    │   ├── quarter_3mm
+    │   │       ├── L067_QD_3_1.CT.0004.0001 ~ .IMA
+    │   │       ├── L067_QD_3_1.CT.0004.0002 ~ .IMA
+    │   │       └── ...
+    │   └── full_3mm
+    │           ├── L067_FD_3_1.CT.0004.0001 ~ .IMA
+    │           ├── L067_FD_3_1.CT.0004.0002 ~ .IMA
+    │           └── ...
+    ├── L096
+    │   ├── quarter_3mm
+    │   │       └── ...
+    │   └── full_3mm
+    │           └── ...      
+    ...
+    │
+    └── L506
+        ├── quarter_3mm
+        │       └── ...
+        └── full_3mm
+                └── ...     
 
 -------
 
