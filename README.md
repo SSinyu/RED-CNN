@@ -9,7 +9,8 @@ There is several things different from the original paper.
   * 512x512 entire image input is used without extracting the patches.
 
 ### DATASET
-“the 2016 NIH-AAPM-Mayo Clinic Low Dose CT Grand Challenge” by Mayo Clinic  
+
+The 2016 NIH-AAPM-Mayo Clinic Low Dose CT Grand Challenge by Mayo Clinic  
 https://www.aapm.org/GrandChallenge/LowDoseCT/
 
 The data_path directory should look like:
