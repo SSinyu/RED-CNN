@@ -9,7 +9,7 @@ import matplotlib.pyplot as plt
 from collections import OrderedDict
 from prep import printProgressBar
 from networks import RED_CNN
-from metric import compute_measure
+from measure import compute_measure
 
 
 class Solver(object):
