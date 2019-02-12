@@ -4,16 +4,15 @@ Implementation of Low-Dose CT with a Residual Encoder-Decoder Convolutional Neur
 <img src="https://github.com/SSinyu/RED_CNN/blob/master/img/redcnn.PNG" width="550"/> 
 
 There is several things different from the original paper.
-  * The input image patch(55x55 size) is extracted randomly from the 512x512 size image. --> Original : Extract patches at regular intervals from the entire image.
-  * Masking the Hounsfield unit corresponding to the air and calculating the MSE loss. (The original MSE loss also proceeds)
-  * 512x512 entire image input is used without extracting the patches.
-
+  * The input image patch(64x64 size) is extracted randomly from the 512x512 size image. --> Original : Extract patches at regular intervals from the entire image.
+  * use Adam optimizer
+  
 ### DATASET
 
-The 2016 NIH-AAPM-Mayo Clinic Low Dose CT Grand Challenge by Mayo Clinic  
+The 2016 NIH-AAPM-Mayo Clinic Low Dose CT Grand Challenge by Mayo Clinic (I can't share this data, you should ask at the URL below if you want)  
 https://www.aapm.org/GrandChallenge/LowDoseCT/
 
-The data_path directory should look like:
+The data_path should look like:
 
 
     data_path
@@ -43,6 +42,7 @@ The data_path directory should look like:
 
 ### RESULT  
 
-<img src="https://github.com/SSinyu/RED_CNN/blob/master/img/REDCNN_full_result.png">
-<img src="https://github.com/SSinyu/RED_CNN/blob/master/img/REDCNN_ROI_result.png">
+<img src="https://github.com/SSinyu/RED_CNN/blob/master/img/result_12.png">
+<img src="https://github.com/SSinyu/RED_CNN/blob/master/img/result_29.png">
+<img src="https://github.com/SSinyu/RED_CNN/blob/master/img/result_47.png">
 
