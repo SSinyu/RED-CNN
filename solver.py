@@ -1,12 +1,15 @@
 import os
+import time
 import numpy as np
-import torch
-import torch.nn as nn
-import torch.optim as optim
 import matplotlib
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 from collections import OrderedDict
+
+import torch
+import torch.nn as nn
+import torch.optim as optim
+
 from prep import printProgressBar
 from networks import RED_CNN
 from measure import compute_measure
@@ -108,6 +111,7 @@ class Solver(object):
     def train(self):
         train_losses = []
         total_iters = 0
+        start_time = time.time()
         for epoch in range(1, self.num_epochs):
             self.REDCNN.train(True)
 
@@ -133,7 +137,10 @@ class Solver(object):
 
                 # print
                 if total_iters % self.print_iters == 0:
-                    print("EPOCH [{}/{}], ITER [{}/{} total:{}] \nLOSS: {:.8f}".format(epoch, self.num_epochs, iter_+1, len(self.data_loader), total_iters, loss.item()))
+                    print("STEP [{}], EPOCH [{}/{}], ITER [{}/{}] \nLOSS: {:.8f}, TIME: {:.1f}s".format(total_iters, epoch, 
+                                                                                                        self.num_epochs, iter_+1, 
+                                                                                                        len(self.data_loader), loss.item(), 
+                                                                                                        time.time() - start_time))
                 # learning rate decay
                 if total_iters % self.decay_iters == 0:
                     self.lr_decay()
@@ -184,5 +191,9 @@ class Solver(object):
                                  prefix="Compute measurements ..",
                                  suffix='Complete', length=25)
             print('\n')
-            print('Original\nPSNR avg: {:.4f} \nSSIM avg: {:.4f} \nRMSE avg: {:.4f}'.format(ori_psnr_avg/len(self.data_loader), ori_ssim_avg/len(self.data_loader), ori_rmse_avg/len(self.data_loader)))
-            print('After learning\nPSNR avg: {:.4f} \nSSIM avg: {:.4f} \nRMSE avg: {:.4f}'.format(pred_psnr_avg/len(self.data_loader), pred_ssim_avg/len(self.data_loader), pred_rmse_avg/len(self.data_loader)))
+            print('Original\nPSNR avg: {:.4f} \nSSIM avg: {:.4f} \nRMSE avg: {:.4f}'.format(ori_psnr_avg/len(self.data_loader), 
+                                                                                            ori_ssim_avg/len(self.data_loader), 
+                                                                                            ori_rmse_avg/len(self.data_loader)))
+            print('After learning\nPSNR avg: {:.4f} \nSSIM avg: {:.4f} \nRMSE avg: {:.4f}'.format(pred_psnr_avg/len(self.data_loader), 
+                                                                                                  pred_ssim_avg/len(self.data_loader), 
+                                                                                                  pred_rmse_avg/len(self.data_loader)))
