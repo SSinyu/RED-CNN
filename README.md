@@ -11,10 +11,11 @@ There is several things different from the original paper.
 
 ### DATASET
 
-The 2016 NIH-AAPM-Mayo Clinic Low Dose CT Grand Challenge by Mayo Clinic (I can't share this data, you should ask at the URL below if you want)  
+The 2016 NIH-AAPM-Mayo Clinic Low Dose CT Grand Challenge by Mayo Clinic   
+(I can't share this data, you should ask at the URL below if you want)  
 https://www.aapm.org/GrandChallenge/LowDoseCT/
 
-The data_path should look like:
+The `data_path` should look like:
 
 
     data_path
@@ -47,14 +48,14 @@ Check the arguments.
 
 1. run `python prep.py` to convert 'dicom file' to 'numpy array'
 2. run `python main.py --load_mode=0` to training. If the available memory(RAM) is more than 10GB, it is faster to run `--load_mode=1`.
-3. run `python main.py --mode='test' --test_iters=***` to test.
+3. run `python main.py --mode='test' --test_iters=100000` to test.
 
 
 -------
 
 ### RESULT  
 
-<img src="https://github.com/SSinyu/RED_CNN/blob/master/img/result_122.png">
-<img src="https://github.com/SSinyu/RED_CNN/blob/master/img/result_292.png">
-<img src="https://github.com/SSinyu/RED_CNN/blob/master/img/result_472.png">
+<img src="https://github.com/SSinyu/RED_CNN/blob/master/img/result_11.png">
+<img src="https://github.com/SSinyu/RED_CNN/blob/master/img/result_25.png">
+<img src="https://github.com/SSinyu/RED_CNN/blob/master/img/result_81.png">
 
