@@ -20,7 +20,7 @@ def save_dataset(args):
             full_pixels = get_pixels_hu(load_scan(path_))
             for pi in range(len(full_pixels)):
                 io = 'input' if 'quarter' in path_ else 'target'
-                f = NORMalize(full_pixels[pi], args.norm_range_min, args.norm_range_max)
+                f = normalize_(full_pixels[pi], args.norm_range_min, args.norm_range_max)
                 f_name = '{}_{}_{}.npy'.format(patient, pi, io)
                 np.save(os.path.join(args.save_path, f_name), f)
 
