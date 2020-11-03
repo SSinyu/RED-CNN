@@ -191,9 +191,10 @@ class Solver(object):
                                  prefix="Compute measurements ..",
                                  suffix='Complete', length=25)
             print('\n')
-            print('Original\nPSNR avg: {:.4f} \nSSIM avg: {:.4f} \nRMSE avg: {:.4f}'.format(ori_psnr_avg/len(self.data_loader), 
+            print('Original === \nPSNR avg: {:.4f} \nSSIM avg: {:.4f} \nRMSE avg: {:.4f}'.format(ori_psnr_avg/len(self.data_loader), 
                                                                                             ori_ssim_avg/len(self.data_loader), 
                                                                                             ori_rmse_avg/len(self.data_loader)))
-            print('After learning\nPSNR avg: {:.4f} \nSSIM avg: {:.4f} \nRMSE avg: {:.4f}'.format(pred_psnr_avg/len(self.data_loader), 
+            print('\n')
+            print('Predictions === \nPSNR avg: {:.4f} \nSSIM avg: {:.4f} \nRMSE avg: {:.4f}'.format(pred_psnr_avg/len(self.data_loader), 
                                                                                                   pred_ssim_avg/len(self.data_loader), 
                                                                                                   pred_rmse_avg/len(self.data_loader)))
