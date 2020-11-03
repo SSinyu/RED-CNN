@@ -55,7 +55,6 @@ Check the arguments.
 
 ### RESULT  
 
-<img src="https://github.com/SSinyu/RED_CNN/blob/master/img/result_11.png">
-<img src="https://github.com/SSinyu/RED_CNN/blob/master/img/result_25.png">
-<img src="https://github.com/SSinyu/RED_CNN/blob/master/img/result_81.png">
-
+<img src="https://github.com/SSinyu/RED_CNN/blob/master/img/result_11.png" width="800"/>   
+<img src="https://github.com/SSinyu/RED_CNN/blob/master/img/result_25.png" width="800"/>   
+<img src="https://github.com/SSinyu/RED_CNN/blob/master/img/result_81.png" width="800"/>   
